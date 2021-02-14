@@ -23,7 +23,7 @@ public class Launch {
         //System.out.println("Resultado "+ Math.pow(5,2));
         
         
-        String entrada = "graficar circulo ( 82+43+3+2,/3, 163, rojo ) "
+        String entrada = "graficar circulo ( 82+43+3+2,3/3, 163, rojo ) "
                 + " graficar circulo ( 200 + 12 , 25, 15, verde ) "
                 + "animar objeto anterior(1,1,curva)";
         StringReader reader = new StringReader(entrada);
@@ -43,6 +43,12 @@ public class Launch {
         System.out.println("Cantidad de Errores : "+p.getContError());
         System.out.println("Cantidad de Circulos: "+ p.getContCirculo());
         
+        
+        System.out.println("Lexema ");
+        for (ErroresC8 errLex : lexer.getListaErroresLexicos()) {
+            
+            System.out.println(errLex.getLexema()+" "+errLex.getLinea()+" "+errLex.getColumna()+" "+errLex.getTipo()+" "+errLex.getDescripcion() );
+        }
     }
     
 }

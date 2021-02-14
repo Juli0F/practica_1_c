@@ -5,6 +5,8 @@
 
 package com.mycompany.operaciones;
 
+import java.util.ArrayList;
+import java.util.List;
 import java_cup.runtime.*;
 import java.io.Reader;
 
@@ -70,11 +72,12 @@ public class Operaciones implements java_cup.runtime.Scanner {
   private static final int [] ZZ_CMAP_BLOCKS = zzUnpackcmap_blocks();
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
-    "\12\0\1\1\35\0\1\2\1\3\1\4\1\5\1\6"+
-    "\1\7\1\0\1\10\12\11\45\0\1\12\1\0\1\13"+
-    "\1\14\1\15\1\16\1\17\1\20\1\21\1\0\1\22"+
-    "\1\23\1\0\1\24\1\25\1\26\1\27\1\30\1\0"+
-    "\1\31\1\0\1\32\1\33\1\34\3\0\1\35\u0185\0";
+    "\10\0\3\1\1\0\2\1\22\0\1\1\7\0\1\2"+
+    "\1\3\1\4\1\5\1\6\1\7\1\0\1\10\12\11"+
+    "\45\0\1\12\1\0\1\13\1\14\1\15\1\16\1\17"+
+    "\1\20\1\21\1\0\1\22\1\23\1\0\1\24\1\25"+
+    "\1\26\1\27\1\30\1\0\1\31\1\0\1\32\1\33"+
+    "\1\34\3\0\1\35\u0185\0";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[512];
@@ -182,7 +185,7 @@ public class Operaciones implements java_cup.runtime.Scanner {
     "\1\34\26\0\1\35\42\0\1\36\21\0\1\37\3\0"+
     "\1\40\32\0\1\41\50\0\1\42\25\0\1\43\7\0"+
     "\1\44\25\0\1\45\31\0\1\46\44\0\1\47\7\0"+
-    "\1\50\36\0\1\51\25\0\1\52\43\0\1\53\17\0"+
+    "\1\50\36\0\1\51\22\0\1\52\46\0\1\53\17\0"+
     "\1\54\15\0\1\55\17\0\1\56\50\0\1\57\40\0"+
     "\1\60\35\0\1\61\25\0\1\62\37\0\1\63\36\0"+
     "\1\64\26\0\1\65\43\0\1\66\43\0\1\67\35\0"+
@@ -329,6 +332,13 @@ public class Operaciones implements java_cup.runtime.Scanner {
   /** Whether the user-EOF-code has already been executed. */
   private boolean zzEOFDone;
 
+  /* user code: */
+	private List<ErroresC8> err;
+
+public List<ErroresC8> getListaErroresLexicos(){
+	return this.err;
+	}
+
 
   /**
    * Creates a new scanner
@@ -336,6 +346,7 @@ public class Operaciones implements java_cup.runtime.Scanner {
    * @param   in  the java.io.Reader to read input from.
    */
   public Operaciones(java.io.Reader in) {
+      err = new ArrayList<>();
     this.zzReader = in;
   }
 
@@ -736,7 +747,7 @@ public class Operaciones implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { 
+            { err.add(new ErroresC8(yytext(),String.valueOf(yyline),String.valueOf(yycolumn),"Lexico","No se reconoce en el Lenguaje")) ;
             }
             // fall through
           case 29: break;
@@ -786,17 +797,17 @@ public class Operaciones implements java_cup.runtime.Scanner {
             // fall through
           case 38: break;
           case 11:
-            { return new Symbol(sym.COLOR,yyline+1, yycolumn+1,("blue"));
+            { return new Symbol(sym.AZUL,yyline+1, yycolumn+1,("blue"));
             }
             // fall through
           case 39: break;
           case 12:
-            { return new Symbol(sym.COLOR,yyline+1, yycolumn+1,("brown"));
+            { return new Symbol(sym.CAFE,yyline+1, yycolumn+1,("brown"));
             }
             // fall through
           case 40: break;
           case 13:
-            { return new Symbol(sym.COLOR,yyline+1, yycolumn+1,("red"));
+            { return new Symbol(sym.ROJO,yyline+1, yycolumn+1,("red"));
             }
             // fall through
           case 41: break;
@@ -811,12 +822,12 @@ public class Operaciones implements java_cup.runtime.Scanner {
             // fall through
           case 43: break;
           case 16:
-            { return new Symbol(sym.COLOR,yyline+1, yycolumn+1,("black"));
+            { return new Symbol(sym.NEGRO,yyline+1, yycolumn+1,("black"));
             }
             // fall through
           case 44: break;
           case 17:
-            { return new Symbol(sym.COLOR,yyline+1, yycolumn+1,("green"));
+            { return new Symbol(sym.VERDE,yyline+1, yycolumn+1,("green"));
             }
             // fall through
           case 45: break;
@@ -826,7 +837,7 @@ public class Operaciones implements java_cup.runtime.Scanner {
             // fall through
           case 46: break;
           case 19:
-            { return new Symbol(sym.COLOR,yyline+1, yycolumn+1,("purple"));
+            { return new Symbol(sym.MORADO,yyline+1, yycolumn+1,("purple"));
             }
             // fall through
           case 47: break;
@@ -841,12 +852,12 @@ public class Operaciones implements java_cup.runtime.Scanner {
             // fall through
           case 49: break;
           case 22:
-            { return new Symbol(sym.COLOR,yyline+1, yycolumn+1,("orange"));
+            { return new Symbol(sym.NARANJA,yyline+1, yycolumn+1,("orange"));
             }
             // fall through
           case 50: break;
           case 23:
-            { return new Symbol(sym.COLOR,yyline+1, yycolumn+1,("yellow"));
+            { return new Symbol(sym.AMARILLO,yyline+1, yycolumn+1,("yellow"));
             }
             // fall through
           case 51: break;

@@ -1,0 +1,247 @@
+package com.mycompany.operaciones;
+
+import java_cup.runtime.*;
+import java.io.Reader;
+
+
+
+
+parser code {:
+	private int contError = 0;
+	private int contLinea = 0;
+	private int contCirculo = 0;
+	private int contCuadrado = 0;
+	private int contRectangulo =0;
+	private int contPoligono =0;
+
+    public parser (Operaciones op){
+		super(op);
+	}
+	
+	public int getContCirculo(){
+		return this.contCirculo;
+	}
+	public int getContError(){
+		return this.contError;
+	}
+    /* Reporte de error encontrado. */
+    /*
+    public void report_error(String message, Object info) {
+        StringBuilder m = new StringBuilder("Error");
+        System.err.println("report_error");
+        
+        if (info instanceof java_cup.runtime.Symbol) {
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+            if (s.left >= 0) {                
+                m.append(" en linea "+(s.left+1));
+                if (s.right >= 0)
+                    m.append(", columna "+(s.right+1));
+            }
+        }
+        m.append(" : "+message);
+        System.err.println(m+"L");
+    }
+   /*
+    /* Cuando se encuentra un error de donde el sistema no puede
+        recuperarse, se lanza un error fatal. Se despliega el mensaje
+        de error y se finaliza la ejecucion. 
+    public void report_fatal_error(String message, Object info) {
+    	System.err.println("fatal");
+        report_error(message, info);
+       // System.exit(1);
+    }
+
+public void syntax_error(Symbol cur_token) {
+		System.out.println("Error en Sintaxis: " + symbl_name_from_id(cur_token.sym));
+}
+*/
+public void report_error(String message, Object info) {
+		System.out.println("reporterror");
+	}
+	public void report_fatal_error(String message, Object info) {
+		System.out.println("report_fatal");
+	}
+	public void report_fatal_error(Symbol cur) {
+		System.out.println("unrecovered_syntax_error");
+	}
+	public void syntax_error(Symbol cur_token) {
+		System.out.println("syntax_err: " + symbl_name_from_id(cur_token.sym));
+	}
+    protected int error_sync_size() {
+		return 2;
+	}
+
+    
+:};
+
+
+action code{:
+int resultado = 0;
+
+	:}
+//operadores aritmeticos
+terminal String  SUMA,MULTIPLICACION,DIVISION,RESTA, PAR_ABIERTO,PAR_CERRADO,COMA;
+terminal String GRAFICAR;
+terminal String ANIMAR;
+terminal String OBJETO;
+terminal String ANTERIOR;
+terminal String CIRCULO;
+terminal String CUADRADO;
+terminal String RECTANGULO;
+terminal String LINEA;
+terminal String POLIGONO;
+terminal String COLOR;
+terminal String TIPO_ANIMACION;
+
+terminal Integer ENTERO;
+terminal String  AZUL,ROJO,VERDE, AMARILLO,NARANJA,MORADO,CAFE,NEGRO;
+
+
+
+nonterminal Integer  s,t,f;
+
+
+nonterminal Integer z,r;
+//nonterminal Integer multipliacion;
+
+nonterminal String sentencia;
+nonterminal String figura;
+nonterminal String cuadrado;
+nonterminal String circulo;
+nonterminal String rectangulo;
+nonterminal String linea;
+nonterminal String poligono;
+nonterminal String inicio;
+nonterminal String animacion;
+
+
+
+
+inicio  ::= sentencia;
+
+sentencia ::= sentencia:sen GRAFICAR figura:fi  {:System.out.println("graficar "+fi+" " );:}
+			|
+			sentencia:sen animacion:an  {:System.out.println("animacion "+an+" ");:}
+			|
+;
+//sentencia ::=GRAFICAR figura:fi  {:System.out.println("graficar "+fi+" " );:} sen_prima;
+
+//sen_prima ::=sentencia:sen animacion:an  {:System.out.println("animacion "+an+" ");:} sen_sen_prima
+//			|
+//			;
+			//|
+			//error PAR_CERRADO
+			//|
+			//error COMA
+			
+
+figura ::= CUADRADO cuadrado:cua {:RESULT = "cuadrado "+cua; contCuadrado++;:}
+		|
+		CIRCULO circulo:cir {:RESULT = "circulo "+cir; contCirculo++;:}
+		|
+		RECTANGULO rectangulo:rec {:RESULT = "rectangulo "+rec; contRectangulo++;:}
+		|
+		 LINEA linea:lin{:RESULT = "linea "+lin; contLinea++;:}
+		|
+		POLIGONO poligono:pol{:RESULT = "poligono "+pol; contPoligono++;:}
+		;
+		
+animacion ::= ANIMAR OBJETO ANTERIOR PAR_ABIERTO s COMA s COMA TIPO_ANIMACION PAR_CERRADO ;
+
+
+circulo ::=  PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA ROJO:col PAR_CERRADO{:RESULT = "( "+s1+","+s2+","+s3+","+col+")";:};
+
+cuadrado ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA COLOR PAR_CERRADO;
+
+rectangulo ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA COLOR PAR_CERRADO;
+
+linea ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA COLOR PAR_CERRADO;
+
+poligono ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA s COMA COLOR PAR_CERRADO;
+
+
+s ::=  t:e z:e1 {:RESULT = e+e1;:}
+|error {:System.out.println("ERROR EN OPERACION Aritmetica"); contError++;:}
+	  //| t:e x:e1 {:RESULT = e-e1:};
+;
+
+z ::= SUMA t:e z:e1 {:RESULT = e+e1;:}
+	|
+	RESTA t:e z:e1 {:RESULT =e-e1;:}
+
+	|
+	{:RESULT = 0;:}
+
+	;
+
+
+t::= f:e r:e1 {:RESULT =e * e1;:}
+	 //|f:e d:e1	{:RESULT =e / e1;:}
+		;
+//d ::=DIVISION f:e d:e1{:RESULT =e / e1;:}
+
+r ::= MULTIPLICACION f:e r:e1 {:RESULT = e*e1;:} 
+	|
+ 	DIVISION f:e r:e1{:RESULT =e / e1;:}
+	|
+	{:RESULT = 1;:}
+
+	
+	;
+f ::= PAR_ABIERTO s:e PAR_CERRADO
+	| ENTERO:e {:RESULT = e;:}
+	;
+//precedencia de operadores multiplicacion
+//division suma y resta
+//recursiva por la derecha
+/*
+s ::= t:e SUMA s:e1{:RESULT = e+e1;:}
+	| 
+	t:e RESTA s:e1 {:System.out.println("Produccion: s RESTA t. "+e+" , - "+e1);RESULT =  e-e1;:}
+	| 
+	t:e {:System.out.println("s Produce  t. "+e); RESULT =  e;:}
+	//| error:e COMA {:System.out.println("Error "+e); :}
+	//| error:e PAR_CERRADO {:System.out.println("Error "+e); :}
+	//| error:e s {:System.out.println("Error "+e); :}
+	;
+
+plus ::= t:e SUMA s:e1 {:System.out.println("Produccion: s SUMA t. "+(e+e1)); RESULT =  e + e1;:}
+|
+	error {: System.out.println("Error en suma"); contError++;:}
+	;
+	 
+	 
+	 
+
+t ::= multipliacion//f:e MULTIPLICACION t:e1 {:System.out.println("t Produce: p MULTIPLICACION t. "+e+" , + "+e1 ); RESULT =  e*e1;:}
+	|
+	 f:e DIVISION t:e1 {:System.out.println("t Produce : p DIVISION t. "+e+" , + "+e1); RESULT =  e/e1;:}
+	|
+	 f:e{:System.out.println("t produce p. "+e+" , + "+e);RESULT = e;:}
+	;
+
+multipliacion ::= 	f:e MULTIPLICACION t:e1 {:System.out.println("t Produce: p MULTIPLICACION t. "+e+" , + "+e1 ); RESULT =  e*e1;:}
+|
+error {: System.out.println("Error en multiplicacion"); contError++;:};
+
+f ::= PAR_ABIERTO:e s:e2 PAR_CERRADO:e1 {:System.out.println("Produccion: ( "+e2+" ). "); RESULT = e2;:}
+ 	| ENTERO:e {:System.out.println("Produccion: entero. "+e); RESULT = e;:}
+ 	//| error:e COMA {:System.out.println("Error "+e); contError++;:}
+ 	//| error:e PAR_CERRADO {:System.out.println("Error "+e); contError++;:}
+	;
+
+
+
+/*
+
+Parte para agregar potencia
+t ::= p:e MULTIPLICACION t:e1 {:System.out.println("t Produce: p MULTIPLICACION t. "+e+" , + "+e1 ); RESULT =  e*e1;:}
+	|
+	 p:e DIVISION t:e1 {:System.out.println("t Produce : p DIVISION t. "+e+" , + "+e1); RESULT =  e/e1;:}
+	|
+	 p:e{:System.out.println("t produce p. "+e+" , + "+e);RESULT = e;:}
+	;
+p ::= f:val POTENCIA p:val1 {:System.out.println("p Produce:  f.  ** p"+val); RESULT = Math.pow(val,val1);:}
+	| f:e {:System.out.println("Potencia:  f. "+e); RESULT =  e;:}
+	;*/
+

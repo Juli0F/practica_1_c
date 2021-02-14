@@ -92,7 +92,7 @@ public class parser extends java_cup.runtime.lr_parser {
     "\002\000\010\003\023\010\026\026\030\001\002\000\004" +
     "\012\100\001\002\000\010\003\023\010\026\026\030\001" +
     "\002\000\004\012\102\001\002\000\010\003\023\010\026" +
-    "\026\030\001\002\000\004\012\104\001\002\000\004\024" +
+    "\026\030\001\002\000\004\012\104\001\002\000\004\030" +
     "\105\001\002\000\004\011\106\001\002\000\010\002\ufff6" +
     "\013\ufff6\014\ufff6\001\002\000\004\010\111\001\002\000" +
     "\010\002\ufff8\013\ufff8\014\ufff8\001\002\000\010\003\023" +
@@ -209,10 +209,11 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
 	private int contError = 0;
-	private int contLnea = 0;
+	private int contLinea = 0;
 	private int contCirculo = 0;
 	private int contCuadrado = 0;
 	private int contRectangulo =0;
+	private int contPoligono =0;
 
     public parser (Operaciones op){
 		super(op);
@@ -241,7 +242,7 @@ public class parser extends java_cup.runtime.lr_parser {
         m.append(" : "+message);
         System.err.println(m+"L");
     }
-   
+   /*
     /* Cuando se encuentra un error de donde el sistema no puede
         recuperarse, se lanza un error fatal. Se despliega el mensaje
         de error y se finaliza la ejecucion. 
@@ -405,7 +406,10 @@ int resultado = 0;
           case 8: // figura ::= LINEA linea 
             {
               String RESULT =null;
-
+		int linleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int linright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		String lin = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		RESULT = "linea "+lin; contLinea++;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("figura",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -414,7 +418,10 @@ int resultado = 0;
           case 9: // figura ::= POLIGONO poligono 
             {
               String RESULT =null;
-
+		int polleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int polright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		String pol = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		RESULT = "poligono "+pol; contPoligono++;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("figura",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -429,7 +436,7 @@ int resultado = 0;
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // circulo ::= PAR_ABIERTO s COMA s COMA s COMA COLOR PAR_CERRADO 
+          case 11: // circulo ::= PAR_ABIERTO s COMA s COMA s COMA ROJO PAR_CERRADO 
             {
               String RESULT =null;
 		int s1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).left;
