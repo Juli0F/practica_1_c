@@ -246,9 +246,69 @@ parser code {:
 
 
 action code{:
-int resultado = 0;
+	int resultado = 0;
+	String signo = "";
+	String nombreSigno = "";
 
-	:}
+
+	
+	private void multiplicacionODivision(String signo,String e,String e1,int resultado){
+
+	
+		switch (signo) {
+			case " * ":
+				
+				if (resultado != 1) {
+					agregarOperador("Multiplicaion"," * ",e,e1);	
+				}
+
+			break;
+
+			case " / ":
+				
+				
+				if (resultado!= 1) {
+					agregarOperador("Division"," / ",e,e1);	
+				}
+			break;
+
+			default :
+			
+
+		
+	}
+	
+	}
+
+	private void sumaResta(String signo,String e,String e1,int resultado){
+
+	
+		switch (signo) {
+			case " + ":
+				
+				if (resultado!=0) {
+					agregarOperador("Suma"," + ",e+"",e1+"");	
+				}
+
+			break;
+
+			case " - ":
+				
+				if (resultado != 0) {
+					agregarOperador("Resta"," - ",e+"",e1+"");	
+				}
+				
+			break;
+
+			default :
+			
+
+		
+	}
+	
+	}
+
+:}
 //operadores aritmeticos
 terminal String  SUMA,MULTIPLICACION,DIVISION,RESTA, PAR_ABIERTO,PAR_CERRADO,COMA;
 terminal String GRAFICAR;
@@ -355,31 +415,120 @@ color::= AZUL:az{: RESULT = az; contAzul++;:}
 
 
 
-s ::=  t:e z:e1 {:RESULT = e+e1; /*agregarOperador("Suma"," + ",e+"",e1+"");*/:}//si se debe mostrar la suma de los numeros resultdos dejar esto sino borrarla	
-	//	|t:e x:e1 {:RESULT = e-e1; agregarOperador("Resta"," - ",e+"",e1+"");:}
-		|error {:System.out.println("ERROR EN OPERACION Aritmetica"); contError++;:}
-	  //| t:e x:e1 {:RESULT = e-e1:};
+s ::=  t:e z:e1 
+
+		{: 
+		 
+
+		 
+		switch (signo) {
+			case " + ":
+				RESULT = e+e1;
+				//agregarOperador("SUMA"," + ",e+"",e1+"");
+				sumaResta(" + ",e+"",e1+""e1);
+			break;
+			case " - ":
+				RESULT = e-e1;
+				sumaResta(" - ",e+"",e1+"",e1);
+				//agregarOperador("Resta"," - ",e+"",e1+"");
+			break;
+			default :
+			RESULT = e;
+			
+		}
+		 	
+		 :}
+
+
+	|error 
+		{:
+			System.out.println("ERROR EN OPERACION Aritmetica"); contError++;
+		:}
 ;
 
-z ::= SUMA t:e z:e1 {:RESULT = e+e1; agregarOperador("SUMA"," + ",e+"",e1+"");   :}
+z ::= SUMA t:e z:e1 
+		{:  RESULT = e+e1;
+			
+			sumaResta(" + ",e+"",e1+""e1);
+			//agregarOperador("SUMA"," + ",e+"",e1+"");
+
+			nombreSigno = "Suma";
+			signo = " + "; 
+	   :}
 	|
-	RESTA t:e z:e1 {:RESULT =e-e1;agregarOperador("Resta"," - ",e+"",e1+"");:}
+	RESTA t:e z:e1 
+	{:
+		RESULT =e-e1; 
+	
+		sumaResta(" - ",e+"",e1+"",e1);
+
+		
+		nombreSigno = "Resta";
+		signo = " - "; 
+
+	:}
+
 	|		
-	{:RESULT = 0;:}
+	{:RESULT = 0;
+		
+		nombreSigno = "";
+		signo="";
+	:}
 	;
 
 
 
-t::= f:e r:e1 {:RESULT =e * e1; /*agregarOperador(" * ",e+"",e1+"");*/:}
-	 //|f:e d:e1	{:RESULT =e / e1;:}
-		;
-//d ::=DIVISION f:e d:e1{:RESULT =e / e1;:}
+t::= f:e r:e1
+ {:
 
-r ::= MULTIPLICACION f:e r:e1 {:RESULT = e*e1; agregarOperador("Multiplicaion"," * ",e+"",e1+"");:} 
+	switch (signo) {
+			case " * ":
+				RESULT = e*e1;
+				agregarOperador("Multiplicaion"," * ",e+"",e1+"");
+			break;
+
+			case " / ":
+				RESULT = e/e1;
+				agregarOperador("Division"," / ",e+"",e1+"");
+			break;
+
+			default :
+			RESULT = e;
+
+		
+	}
+:}
+	 
+		;
+
+
+r ::= MULTIPLICACION f:e r:e1 
+		{:
+			RESULT = e*e1; 
+
+			agregarOperador("Multiplicacion"," * ",e+"",e1+"");
+			
+			nombreSigno = " Multiplicacion ";
+			signo=" * ";
+		:} 
 	|
- 	DIVISION f:e r:e1{:RESULT =e / e1; agregarOperador("Division"," / ",e+"",e1+"");:}
+ 	DIVISION f:e r:e1{:
+
+ 		RESULT =e / e1; 
+ 		
+ 		agregarOperador("Division"," / ",e+"",e1+"");
+ 		
+ 		nombreSigno = " Division ";
+ 		signo=" / ";
+		
+		:}
 	|
-	{:RESULT = 1;:}
+	{:
+		RESULT = 1;
+		
+		nombreSigno = "&";
+		signo="&";
+	:}
 
 	
 	;

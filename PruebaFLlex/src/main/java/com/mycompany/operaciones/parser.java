@@ -481,9 +481,69 @@ public class parser extends java_cup.runtime.lr_parser {
 class CUP$parser$actions {
 
 
-int resultado = 0;
+	int resultado = 0;
+	String signo = "";
+	String nombreSigno = "";
+
 
 	
+	private void multiplicacionODivision(String signo,String e,String e1,int resultado){
+
+	
+		switch (signo) {
+			case " * ":
+				
+				if (resultado != 1) {
+					agregarOperador("Multiplicaion"," * ",e,e1);	
+				}
+
+			break;
+
+			case " / ":
+				
+				
+				if (resultado!= 1) {
+					agregarOperador("Division"," / ",e,e1);	
+				}
+			break;
+
+			default :
+			
+
+		
+	}
+	
+	}
+
+	private void sumaResta(String signo,String e,String e1,int resultado){
+
+	
+		switch (signo) {
+			case " + ":
+				
+				if (resultado!=0) {
+					agregarOperador("Suma"," + ",e+"",e1+"");	
+				}
+
+			break;
+
+			case " - ":
+				
+				if (resultado != 0) {
+					agregarOperador("Resta"," - ",e+"",e1+"");	
+				}
+				
+			break;
+
+			default :
+			
+
+		
+	}
+	
+	}
+
+
   private final parser parser;
 
   /** Constructor */
@@ -889,7 +949,27 @@ int resultado = 0;
 		int e1left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int e1right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Integer e1 = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = e+e1; /*agregarOperador("Suma"," + ",e+"",e1+"");*/
+		 
+		 
+
+		 
+		switch (signo) {
+			case " + ":
+				RESULT = e+e1;
+				//agregarOperador("SUMA"," + ",e+"",e1+"");
+				sumaResta(" + ",e+"",e1+""e1);
+			break;
+			case " - ":
+				RESULT = e-e1;
+				sumaResta(" - ",e+"",e1+"",e1);
+				//agregarOperador("Resta"," - ",e+"",e1+"");
+			break;
+			default :
+			RESULT = e;
+			
+		}
+		 	
+		 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -898,7 +978,9 @@ int resultado = 0;
           case 31: // s ::= error 
             {
               Integer RESULT =null;
-		System.out.println("ERROR EN OPERACION Aritmetica"); contError++;
+		
+			System.out.println("ERROR EN OPERACION Aritmetica"); contError++;
+		
               CUP$parser$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -913,7 +995,14 @@ int resultado = 0;
 		int e1left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int e1right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Integer e1 = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = e+e1; agregarOperador("SUMA"," + ",e+"",e1+"");   
+		  RESULT = e+e1;
+			
+			sumaResta(" + ",e+"",e1+""e1);
+			//agregarOperador("SUMA"," + ",e+"",e1+"");
+
+			nombreSigno = "Suma";
+			signo = " + "; 
+	   
               CUP$parser$result = parser.getSymbolFactory().newSymbol("z",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -928,7 +1017,16 @@ int resultado = 0;
 		int e1left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int e1right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Integer e1 = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT =e-e1;agregarOperador("Resta"," - ",e+"",e1+"");
+		
+		RESULT =e-e1; 
+	
+		sumaResta(" - ",e+"",e1+"",e1);
+
+		
+		nombreSigno = "Resta";
+		signo = " - "; 
+
+	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("z",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -938,6 +1036,10 @@ int resultado = 0;
             {
               Integer RESULT =null;
 		RESULT = 0;
+		
+		nombreSigno = "";
+		signo="";
+	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("z",3, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -952,7 +1054,25 @@ int resultado = 0;
 		int e1left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int e1right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Integer e1 = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT =e * e1; /*agregarOperador(" * ",e+"",e1+"");*/
+		
+
+	switch (signo) {
+			case " * ":
+				RESULT = e*e1;
+				agregarOperador("Multiplicaion"," * ",e+"",e1+"");
+			break;
+
+			case " / ":
+				RESULT = e/e1;
+				agregarOperador("Division"," / ",e+"",e1+"");
+			break;
+
+			default :
+			RESULT = e;
+
+		
+	}
+
               CUP$parser$result = parser.getSymbolFactory().newSymbol("t",1, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -967,7 +1087,14 @@ int resultado = 0;
 		int e1left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int e1right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Integer e1 = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = e*e1; agregarOperador("Multiplicaion"," * ",e+"",e1+"");
+		
+			RESULT = e*e1; 
+
+			agregarOperador("Multiplicacion"," * ",e+"",e1+"");
+			
+			nombreSigno = " Multiplicacion ";
+			signo=" * ";
+		
               CUP$parser$result = parser.getSymbolFactory().newSymbol("r",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -982,7 +1109,16 @@ int resultado = 0;
 		int e1left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int e1right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Integer e1 = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT =e / e1; agregarOperador("Division"," / ",e+"",e1+"");
+		
+
+ 		RESULT =e / e1; 
+ 		
+ 		agregarOperador("Division"," / ",e+"",e1+"");
+ 		
+ 		nombreSigno = " Division ";
+ 		signo=" / ";
+		
+		
               CUP$parser$result = parser.getSymbolFactory().newSymbol("r",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -991,7 +1127,12 @@ int resultado = 0;
           case 38: // r ::= 
             {
               Integer RESULT =null;
+		
 		RESULT = 1;
+		
+		nombreSigno = "&";
+		signo="&";
+	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("r",4, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

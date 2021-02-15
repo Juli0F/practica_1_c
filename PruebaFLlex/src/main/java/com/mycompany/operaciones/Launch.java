@@ -29,7 +29,7 @@ public class Launch {
         List<ReporteDuo> lst = new ArrayList<>();
         
         String entrada = "$ \n"
-                + "  graficar  circulo( 82+43+3+2,5/3, 163, rojo ) \n"
+                + "  graficar  circulo( 82+2*3,5/3, 163, rojo ) \n"
                 + " graficar circulo ( 200 + 12 , 25, 15, verde ) "
                 + " graficar circulo ( 400 + 12 , 25, 15, verde ) "
                 + "animar objeto anterior(1,1,curva)";
