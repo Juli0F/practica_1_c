@@ -39,9 +39,7 @@ parser code {:
 
 	private List<ErroresC8> err;
 	private List<Operadores> operadoresArit;
-	private List<ReporteDuo> repColor;
-	private List<ReporteDuo> repObjetos;
-	private List<ReporteDuo> repAnimaciones;
+	private List<String> lstSentencias;
 
 
     public parser (MyLexer op){
@@ -70,9 +68,8 @@ parser code {:
 		this.mensaje = "";
 
 		operadoresArit = new ArrayList<>();
-		repColor = new ArrayList<>();
-		repObjetos = new ArrayList<>();
-		repAnimaciones = new ArrayList<>();
+		
+		lstSentencias = new ArrayList<>();
 
 
 	}
@@ -231,16 +228,8 @@ parser code {:
     }
     
 
-    public List<ReporteDuo> getRepColor() {
-        return repColor;
-    }
-
-    public List<ReporteDuo> getRepObjetos() {
-        return repObjetos;
-    }
-
-    public List<ReporteDuo> getRepAnimaciones() {
-        return repAnimaciones;
+    public List<String> getLstSentencias(){
+    	return this.lstSentencias;
     }
 :};
 
@@ -348,9 +337,9 @@ nonterminal String tipo_animacion;
 
 inicio ::= sentencia:val{: System.out.println(val);:}; //INICIA LA GRAMATICA
 
-sentencia ::= graph:gr  sen_1:sn1 {:System.out.println(gr +" "+sn1);:} //GRAFICAR FIGURA O ANIMACION 
+sentencia ::= graph:gr  sen_1:sn1 {: :} //GRAFICAR FIGURA O ANIMACION 
 		|
-		animacion:an sen_1  {:System.out.println("animacion "+an+" ");:}
+		animacion:an sen_1:sn1  {:lstSentencias.add(an);  System.out.println("animacion "+an+" ");:}
 		|
 		error:e  sen_1:sn1 {:System.out.println("error sintactico "+sn1 ); RESULT = sn1; contError++;:}
 		
@@ -364,10 +353,17 @@ sen_1 ::= animacion:an sen_1:sn  {:RESULT = an + " "+ sn ;:}
 	
 		;	
 
-graph::= GRAFICAR figura:fi {:RESULT = "graficar "+fi;:}
+graph::= GRAFICAR figura:fi
+ {:
+ 	lstSentencias.add(fi); RESULT = "graficar "+fi;
+:}
 ;
 
-animacion ::= ANIMAR OBJETO ANTERIOR PAR_ABIERTO s:s1 COMA s:s2 COMA tipo_animacion:t_an PAR_CERRADO {:RESULT = "animar objeto anterior ( "+s1+","+s2+","+t_an+")"; :}
+animacion ::= ANIMAR OBJETO ANTERIOR PAR_ABIERTO s:s1 COMA s:s2 COMA tipo_animacion:t_an PAR_CERRADO 
+{:
+	lstSentencias.add("animacion, "+s1+","+s2+","+t_an);
+	RESULT = "animar objeto anterior ( "+s1+","+s2+","+t_an+")"; 
+:}
 //	| error {: mensaje = "error cerca de una animacion "; System.out.println("error sintactico Animacion"); contError++;:}
 ;
 
@@ -425,7 +421,7 @@ s ::=  t:e z:e1
 			case " + ":
 				RESULT = e+e1;
 				//agregarOperador("SUMA"," + ",e+"",e1+"");
-				sumaResta(" + ",e+"",e1+""e1);
+				sumaResta(" + ",e+"",e1+"",e1);
 			break;
 			case " - ":
 				RESULT = e-e1;
@@ -449,7 +445,7 @@ s ::=  t:e z:e1
 z ::= SUMA t:e z:e1 
 		{:  RESULT = e+e1;
 			
-			sumaResta(" + ",e+"",e1+""e1);
+			sumaResta(" + ",e+"",e1+"",e1);
 			//agregarOperador("SUMA"," + ",e+"",e1+"");
 
 			nombreSigno = "Suma";

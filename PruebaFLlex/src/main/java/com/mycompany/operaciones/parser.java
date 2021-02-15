@@ -271,9 +271,7 @@ public class parser extends java_cup.runtime.lr_parser {
 
 	private List<ErroresC8> err;
 	private List<Operadores> operadoresArit;
-	private List<ReporteDuo> repColor;
-	private List<ReporteDuo> repObjetos;
-	private List<ReporteDuo> repAnimaciones;
+	private List<String> lstSentencias;
 
 
     public parser (MyLexer op){
@@ -302,9 +300,8 @@ public class parser extends java_cup.runtime.lr_parser {
 		this.mensaje = "";
 
 		operadoresArit = new ArrayList<>();
-		repColor = new ArrayList<>();
-		repObjetos = new ArrayList<>();
-		repAnimaciones = new ArrayList<>();
+		
+		lstSentencias = new ArrayList<>();
 
 
 	}
@@ -463,16 +460,8 @@ public class parser extends java_cup.runtime.lr_parser {
     }
     
 
-    public List<ReporteDuo> getRepColor() {
-        return repColor;
-    }
-
-    public List<ReporteDuo> getRepObjetos() {
-        return repObjetos;
-    }
-
-    public List<ReporteDuo> getRepAnimaciones() {
-        return repAnimaciones;
+    public List<String> getLstSentencias(){
+    	return this.lstSentencias;
     }
 
 
@@ -601,7 +590,7 @@ class CUP$parser$actions {
 		int sn1left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int sn1right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String sn1 = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		System.out.println(gr +" "+sn1);
+		 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("sentencia",5, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -613,7 +602,10 @@ class CUP$parser$actions {
 		int anleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int anright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String an = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		System.out.println("animacion "+an+" ");
+		int sn1left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int sn1right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		String sn1 = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		lstSentencias.add(an);  System.out.println("animacion "+an+" ");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("sentencia",5, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -679,7 +671,9 @@ class CUP$parser$actions {
 		int fileft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int firight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String fi = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = "graficar "+fi;
+		
+ 	lstSentencias.add(fi); RESULT = "graficar "+fi;
+
               CUP$parser$result = parser.getSymbolFactory().newSymbol("graph",16, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -697,7 +691,10 @@ class CUP$parser$actions {
 		int t_anleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int t_anright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String t_an = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		RESULT = "animar objeto anterior ( "+s1+","+s2+","+t_an+")"; 
+		
+	lstSentencias.add("animacion, "+s1+","+s2+","+t_an);
+	RESULT = "animar objeto anterior ( "+s1+","+s2+","+t_an+")"; 
+
               CUP$parser$result = parser.getSymbolFactory().newSymbol("animacion",13, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-9)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -957,7 +954,7 @@ class CUP$parser$actions {
 			case " + ":
 				RESULT = e+e1;
 				//agregarOperador("SUMA"," + ",e+"",e1+"");
-				sumaResta(" + ",e+"",e1+""e1);
+				sumaResta(" + ",e+"",e1+"",e1);
 			break;
 			case " - ":
 				RESULT = e-e1;
@@ -997,7 +994,7 @@ class CUP$parser$actions {
 		Integer e1 = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		  RESULT = e+e1;
 			
-			sumaResta(" + ",e+"",e1+""e1);
+			sumaResta(" + ",e+"",e1+"",e1);
 			//agregarOperador("SUMA"," + ",e+"",e1+"");
 
 			nombreSigno = "Suma";
