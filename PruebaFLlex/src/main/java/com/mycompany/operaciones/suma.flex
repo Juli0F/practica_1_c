@@ -13,7 +13,7 @@ Agregar la importacion del paquete
 %%
 
 %public 
-%class Operaciones
+%class MyLexer
 %cup
 %unicode
 %line
@@ -46,6 +46,8 @@ public List<ErroresC8> getListaErroresLexicos(){
 %%
 
 /*Reglas Lexicas*/
+<YYINITIAL> {
+
 
 {DIGITO}+ {return new Symbol (sym.ENTERO, yyline+1,yycolumn+1,Integer.parseInt(yytext())); }
 
@@ -54,7 +56,7 @@ public List<ErroresC8> getListaErroresLexicos(){
 
 "*" {return new Symbol(sym.MULTIPLICACION,yyline+1, yycolumn+1,(yytext()));}
 "/" {return new Symbol(sym.DIVISION,yyline+1, yycolumn+1,(yytext()));}
-"," {return new Symbol(sym.COMA,yyline+1, yycolumn+1);}
+"," {return new Symbol(sym.COMA,yyline+1, yycolumn+1, yytext());}
 //";" {return new Symbol(sym.PUNTO_COMA,yyline+1, yycolumn+1);}
 //"**" {return new Symbol(sym.POTENCIA,yyline+1, yycolumn+1);}
 //"^" {return new Symbol(sym.POTENCIA,yyline+1, yycolumn+1);}
@@ -82,8 +84,8 @@ public List<ErroresC8> getListaErroresLexicos(){
 "cafe" {return new Symbol(sym.CAFE,yyline+1, yycolumn+1,("brown"));}
 "negro" {return new Symbol(sym.NEGRO,yyline+1, yycolumn+1,("black"));}
 //tipo de animacion
-"linea_" {return new Symbol(sym.TIPO_ANIMACION,yyline+1, yycolumn+1,(yytext()));}
-"curva" {return new Symbol(sym.TIPO_ANIMACION,yyline+1, yycolumn+1,(yytext()));}
+
+"curva" {return new Symbol(sym.CURVA,yyline+1, yycolumn+1,(yytext()));}
 
 
 //";" {return new Symbol(sym.SEMICOLON,yyline+1, yycolumn+1,(yytext()));}
@@ -93,9 +95,10 @@ public List<ErroresC8> getListaErroresLexicos(){
 {SALTO_LINEA} {/*IGNORAR	*/}
 
 //
-[^] 	 {err.add(new ErroresC8(yytext(),String.valueOf(yyline),String.valueOf(yycolumn),"Lexico","No se reconoce en el Lenguaje")) ;}
+[^] 	 {err.add(new ErroresC8(yytext(),String.valueOf((yyline+1)),String.valueOf((yycolumn+1)),"Lexico","No se reconoce en el Lenguaje")) ;}
+<<EOF>>             { return new Symbol(sym.EOF); }
 
-
+}
 /*
 s ::=  ENTERO SUMA ENTERO {: System.out.println("ENTERO SUMA ENTERO");:} 
 	| ENTERO SUMA ENTERO COMA s {: System.out.println("ENTERO SUMA ENTERO,COMA s");:} 

@@ -1,77 +1,247 @@
 package com.mycompany.operaciones;
 
+import java.util.ArrayList;
+import java.util.List;
 import java_cup.runtime.*;
 import java.io.Reader;
-
-
+import com.mycompany.reportes.Operadores;
+import com.mycompany.reportes.ReporteDuo;
 
 
 parser code {:
-	private int contError = 0;
-	private int contLinea = 0;
-	private int contCirculo = 0;
-	private int contCuadrado = 0;
-	private int contRectangulo =0;
-	private int contPoligono =0;
 
-    public parser (Operaciones op){
+
+	//contadores para las figuras
+	private int contError ;
+	private int contLinea ;
+	private int contCirculo ;
+	private int contCuadrado ;
+	private int contRectangulo;
+	private int contPoligono ;
+
+	//contadores para los colores
+	private int contAzul ;
+	private int contAmarillo;
+	private int contCafe ;
+	private int contMorado ;
+	private int contNaranja ;
+	private int contNegro ;
+	private int contRojo ;
+	private int contVerde ;
+	
+	
+
+//cont animaciones
+	private int contAnimacionLinea ;
+	private int contAnimacionCurva ;
+
+	private String mensaje;
+
+	private List<ErroresC8> err;
+	private List<Operadores> operadoresArit;
+	private List<ReporteDuo> repColor;
+	private List<ReporteDuo> repObjetos;
+	private List<ReporteDuo> repAnimaciones;
+
+
+    public parser (MyLexer op){
 		super(op);
+		err = op.getListaErroresLexicos();
+
+		this.contError = 0;
+		this.contLinea = 0;
+		this.contCirculo = 0;
+		this.contCuadrado = 0;
+		this.contRectangulo = 0;
+		this.contPoligono = 0;
+
+		this.contAzul = 0;
+		this.contRojo = 0;
+		this.contVerde = 0;
+		this.contAmarillo = 0;
+		this.contNaranja = 0;
+		this.contMorado = 0;
+		this.contCafe = 0;
+		this.contNegro = 0;
+
+		this.contAnimacionLinea = 0;
+		this.contAnimacionCurva = 0;
+
+		this.mensaje = "";
+
+		operadoresArit = new ArrayList<>();
+		repColor = new ArrayList<>();
+		repObjetos = new ArrayList<>();
+		repAnimaciones = new ArrayList<>();
+
+
+	}
+
+	public List<ErroresC8> getListaErrores(){
+		return this.err;
 	}
 	
-	public int getContCirculo(){
-		return this.contCirculo;
-	}
-	public int getContError(){
-		return this.contError;
-	}
+    public int getContError() {
+        return contError;
+    }
+
+    public int getContLinea() {
+        return contLinea;
+    }
+
+    public int getContCirculo() {
+        return contCirculo;
+    }
+
+    public int getContCuadrado() {
+        return contCuadrado;
+    }
+
+    public int getContRectangulo() {
+        return contRectangulo;
+    }
+
+    public int getContPoligono() {
+        return contPoligono;
+    }
+
+    public int getContAzul() {
+        return contAzul;
+    }
+
+    public int getContRojo() {
+        return contRojo;
+    }
+
+    public int getContVerde() {
+        return contVerde;
+    }
+
+    public int getContAmarillo() {
+        return contAmarillo;
+    }
+
+    public int getContNaranja() {
+        return contNaranja;
+    }
+
+    public int getContMorado() {
+        return contMorado;
+    }
+
+    public int getContCafe() {
+        return contCafe;
+    }
+
+    public int getContNegro() {
+        return contNegro;
+    }
+
+    public int getContAnimacionLinea() {
+        return contAnimacionLinea;
+    }
+
+    public int getContAnimacionCurva() {
+        return contAnimacionCurva;
+    }
     /* Reporte de error encontrado. */
-    /*
+    
     public void report_error(String message, Object info) {
         StringBuilder m = new StringBuilder("Error");
-        System.err.println("report_error");
+        
         
         if (info instanceof java_cup.runtime.Symbol) {
             java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
-            if (s.left >= 0) {                
-                m.append(" en linea "+(s.left+1));
-                if (s.right >= 0)
-                    m.append(", columna "+(s.right+1));
+
+            String lexema = (String) s.value;
+            String descripcion = "Se Esperaba: ";
+
+        	for (Integer token : expected_token_ids()) {
+
+        		if (token>8) {
+        			descripcion = descripcion + " \'"+sym.terminalNames[token].toLowerCase()+"\'";	
+        		}else{
+
+        		switch (token) {
+		            case 2:
+		              descripcion = descripcion + "  \'+\'"  ;
+		                break;
+	                case 3:
+	                	descripcion = descripcion + " \'*\'";
+	                break;
+	                case 4:
+	                	descripcion = descripcion + " \'/\'";
+	                break;
+	                case 5:
+	                	descripcion = descripcion + " \'-\'";
+	                break;
+	                case 6:
+	                	descripcion = descripcion + " \'(\'";
+	                break;
+	                case 7:
+	                	descripcion = descripcion + " \'')\'";
+	                break;
+	                case 8:
+	                	descripcion = descripcion + "  \',\'";
+	                break;
+		        }
+
+				}
+               
             }
+            err.add(new ErroresC8(
+            		lexema,
+            		""+s.left,
+            		""+s.right,
+            		"Sintactico",
+            		mensaje+".  "+descripcion
+            	));
+
+
+	       
         }
         m.append(" : "+message);
-        System.err.println(m+"L");
-    }
-   /*
-    /* Cuando se encuentra un error de donde el sistema no puede
-        recuperarse, se lanza un error fatal. Se despliega el mensaje
-        de error y se finaliza la ejecucion. 
-    public void report_fatal_error(String message, Object info) {
-    	System.err.println("fatal");
-        report_error(message, info);
-       // System.exit(1);
+        System.err.println(m);
     }
 
-public void syntax_error(Symbol cur_token) {
-		System.out.println("Error en Sintaxis: " + symbl_name_from_id(cur_token.sym));
-}
-*/
-public void report_error(String message, Object info) {
-		System.out.println("reporterror");
-	}
 	public void report_fatal_error(String message, Object info) {
 		System.out.println("report_fatal");
 	}
 	public void report_fatal_error(Symbol cur) {
 		System.out.println("unrecovered_syntax_error");
 	}
+
 	public void syntax_error(Symbol cur_token) {
-		System.out.println("syntax_err: " + symbl_name_from_id(cur_token.sym));
-	}
+            
+            report_error( "Error Sintactico", cur_token) ;
+
+        }
+
     protected int error_sync_size() {
-		return 2;
+		return 1;
 	}
 
+	public void agregarOperador(String nombreOp,String operador, String value , String value2){
+
+		operadoresArit.add(new Operadores(nombreOp,cur_token.left+"",cur_token.right+"",(value+operador + value2)));
+	}
+
+	 public List<Operadores> getOperadoresArit() {
+        return operadoresArit;
+    }
     
+
+    public List<ReporteDuo> getRepColor() {
+        return repColor;
+    }
+
+    public List<ReporteDuo> getRepObjetos() {
+        return repObjetos;
+    }
+
+    public List<ReporteDuo> getRepAnimaciones() {
+        return repAnimaciones;
+    }
 :};
 
 
@@ -90,19 +260,13 @@ terminal String CUADRADO;
 terminal String RECTANGULO;
 terminal String LINEA;
 terminal String POLIGONO;
-terminal String COLOR;
-terminal String TIPO_ANIMACION;
+terminal String CURVA;
 
 terminal Integer ENTERO;
 terminal String  AZUL,ROJO,VERDE, AMARILLO,NARANJA,MORADO,CAFE,NEGRO;
 
-
-
 nonterminal Integer  s,t,f;
-
-
 nonterminal Integer z,r;
-//nonterminal Integer multipliacion;
 
 nonterminal String sentencia;
 nonterminal String figura;
@@ -113,27 +277,46 @@ nonterminal String linea;
 nonterminal String poligono;
 nonterminal String inicio;
 nonterminal String animacion;
+nonterminal String color;
+nonterminal String sen_1;
+nonterminal String graph;
+nonterminal String tipo_animacion;
 
 
 
 
-inicio  ::= sentencia;
 
-sentencia ::= sentencia:sen GRAFICAR figura:fi  {:System.out.println("graficar "+fi+" " );:}
-			|
-			sentencia:sen animacion:an  {:System.out.println("animacion "+an+" ");:}
-			|
+inicio ::= sentencia:val{: System.out.println(val);:}; //INICIA LA GRAMATICA
+
+sentencia ::= graph:gr  sen_1:sn1 {:System.out.println(gr +" "+sn1);:} //GRAFICAR FIGURA O ANIMACION 
+		|
+		animacion:an sen_1  {:System.out.println("animacion "+an+" ");:}
+		|
+		error:e  sen_1:sn1 {:System.out.println("error sintactico "+sn1 ); RESULT = sn1; contError++;:}
+		
+		;
+
+sen_1 ::= animacion:an sen_1:sn  {:RESULT = an + " "+ sn ;:}
+		|
+		graph:gr  sen_1:sn1 {:RESULT = gr+" "+sn1+" ";:}		
+		| 
+		{:RESULT = " ";:}
+	
+		;	
+
+graph::= GRAFICAR figura:fi {:RESULT = "graficar "+fi;:}
 ;
-//sentencia ::=GRAFICAR figura:fi  {:System.out.println("graficar "+fi+" " );:} sen_prima;
 
-//sen_prima ::=sentencia:sen animacion:an  {:System.out.println("animacion "+an+" ");:} sen_sen_prima
-//			|
-//			;
-			//|
-			//error PAR_CERRADO
-			//|
-			//error COMA
-			
+animacion ::= ANIMAR OBJETO ANTERIOR PAR_ABIERTO s:s1 COMA s:s2 COMA tipo_animacion:t_an PAR_CERRADO {:RESULT = "animar objeto anterior ( "+s1+","+s2+","+t_an+")"; :}
+//	| error {: mensaje = "error cerca de una animacion "; System.out.println("error sintactico Animacion"); contError++;:}
+;
+
+
+tipo_animacion ::= LINEA:li{: RESULT = li; contAnimacionLinea++;:} 
+				| CURVA:cu{:RESULT = cu; contAnimacionCurva++;:}
+				//|error {: contAnimacionCurva++;:}
+
+;
 
 figura ::= CUADRADO cuadrado:cua {:RESULT = "cuadrado "+cua; contCuadrado++;:}
 		|
@@ -146,43 +329,55 @@ figura ::= CUADRADO cuadrado:cua {:RESULT = "cuadrado "+cua; contCuadrado++;:}
 		POLIGONO poligono:pol{:RESULT = "poligono "+pol; contPoligono++;:}
 		;
 		
-animacion ::= ANIMAR OBJETO ANTERIOR PAR_ABIERTO s COMA s COMA TIPO_ANIMACION PAR_CERRADO ;
+
+circulo ::=  PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA color:col PAR_CERRADO{:RESULT = "( "+s1+","+s2+","+s3+","+col+")";:};
+
+cuadrado ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA color PAR_CERRADO;
+
+rectangulo ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA color PAR_CERRADO;
+
+linea ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA color PAR_CERRADO;
+
+poligono ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA s COMA color PAR_CERRADO;
 
 
-circulo ::=  PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA ROJO:col PAR_CERRADO{:RESULT = "( "+s1+","+s2+","+s3+","+col+")";:};
 
-cuadrado ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA COLOR PAR_CERRADO;
+color::= AZUL:az{: RESULT = az; contAzul++;:}
+	|ROJO:ro{:RESULT = ro; contRojo++;:}
+	|VERDE:ve{: RESULT = ve; contVerde++; :}
+	|AMARILLO:am{:RESULT = am; contAmarillo++;:}
+	|NARANJA:na{:RESULT = na; contNaranja++;:}
+	|MORADO:mo{:RESULT = mo; contMorado++;:}
+	|CAFE:ca{:RESULT = ca; contCafe++;:}
+	|NEGRO:ne{:RESULT = ne; contNegro++;:};
 
-rectangulo ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA COLOR PAR_CERRADO;
-
-linea ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA COLOR PAR_CERRADO;
-
-poligono ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA s COMA COLOR PAR_CERRADO;
 
 
-s ::=  t:e z:e1 {:RESULT = e+e1;:}
-|error {:System.out.println("ERROR EN OPERACION Aritmetica"); contError++;:}
+
+
+s ::=  t:e z:e1 {:RESULT = e+e1; /*agregarOperador("Suma"," + ",e+"",e1+"");*/:}//si se debe mostrar la suma de los numeros resultdos dejar esto sino borrarla	
+	//	|t:e x:e1 {:RESULT = e-e1; agregarOperador("Resta"," - ",e+"",e1+"");:}
+		|error {:System.out.println("ERROR EN OPERACION Aritmetica"); contError++;:}
 	  //| t:e x:e1 {:RESULT = e-e1:};
 ;
 
-z ::= SUMA t:e z:e1 {:RESULT = e+e1;:}
+z ::= SUMA t:e z:e1 {:RESULT = e+e1; agregarOperador("SUMA"," + ",e+"",e1+"");   :}
 	|
-	RESTA t:e z:e1 {:RESULT =e-e1;:}
-
-	|
+	RESTA t:e z:e1 {:RESULT =e-e1;agregarOperador("Resta"," - ",e+"",e1+"");:}
+	|		
 	{:RESULT = 0;:}
-
 	;
 
 
-t::= f:e r:e1 {:RESULT =e * e1;:}
+
+t::= f:e r:e1 {:RESULT =e * e1; /*agregarOperador(" * ",e+"",e1+"");*/:}
 	 //|f:e d:e1	{:RESULT =e / e1;:}
 		;
 //d ::=DIVISION f:e d:e1{:RESULT =e / e1;:}
 
-r ::= MULTIPLICACION f:e r:e1 {:RESULT = e*e1;:} 
+r ::= MULTIPLICACION f:e r:e1 {:RESULT = e*e1; agregarOperador("Multiplicaion"," * ",e+"",e1+"");:} 
 	|
- 	DIVISION f:e r:e1{:RESULT =e / e1;:}
+ 	DIVISION f:e r:e1{:RESULT =e / e1; agregarOperador("Division"," / ",e+"",e1+"");:}
 	|
 	{:RESULT = 1;:}
 
@@ -191,6 +386,27 @@ r ::= MULTIPLICACION f:e r:e1 {:RESULT = e*e1;:}
 f ::= PAR_ABIERTO s:e PAR_CERRADO
 	| ENTERO:e {:RESULT = e;:}
 	;
+
+/*sentencia ::= sentencia:sen GRAFICAR figura:fi  {:System.out.println("graficar "+fi+" " );:}
+			|
+			sentencia:sen animacion:an  {:System.out.println("animacion "+an+" ");:}
+			|
+;
+*/
+
+
+
+
+//sentencia ::=GRAFICAR figura:fi  {:System.out.println("graficar "+fi+" " );:} sen_prima;
+
+//sen_prima ::=sentencia:sen animacion:an  {:System.out.println("animacion "+an+" ");:} sen_sen_prima
+//			|
+//			;
+			//|
+			//error PAR_CERRADO
+			//|
+			//error COMA
+
 //precedencia de operadores multiplicacion
 //division suma y resta
 //recursiva por la derecha

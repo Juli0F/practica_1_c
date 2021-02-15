@@ -7,7 +7,11 @@ package com.mycompany.operaciones;
 
 
 
+import com.mycompany.reportes.Operadores;
+import com.mycompany.reportes.ReporteDuo;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,13 +26,16 @@ public class Launch {
         
         //System.out.println("Resultado "+ Math.pow(5,2));
         
+        List<ReporteDuo> lst = new ArrayList<>();
         
-        String entrada = "graficar circulo ( 82+43+3+2,3/3, 163, rojo ) "
+        String entrada = "$ \n"
+                + "  graficar  circulo( 82+43+3+2,5/3, 163, rojo ) \n"
                 + " graficar circulo ( 200 + 12 , 25, 15, verde ) "
+                + " graficar circulo ( 400 + 12 , 25, 15, verde ) "
                 + "animar objeto anterior(1,1,curva)";
         StringReader reader = new StringReader(entrada);
 
-        Operaciones lexer = new Operaciones(reader);
+        MyLexer lexer = new MyLexer(reader);
 
         
         parser p = new parser(lexer);
@@ -45,10 +52,22 @@ public class Launch {
         
         
         System.out.println("Lexema ");
-        for (ErroresC8 errLex : lexer.getListaErroresLexicos()) {
+        for (ErroresC8 listaErrore : p.getListaErrores()) {
             
-            System.out.println(errLex.getLexema()+" "+errLex.getLinea()+" "+errLex.getColumna()+" "+errLex.getTipo()+" "+errLex.getDescripcion() );
+        
+            
+        
+            System.out.println(listaErrore.getLexema()+" "+listaErrore.getLinea()+" "+listaErrore.getColumna()+" "+listaErrore.getTipo()+" "+listaErrore.getDescripcion() );
         }
+        System.out.println("");
+        System.out.println("");
+        
+        for (Operadores o : p.getOperadoresArit()) {
+            
+            System.out.println(o.getOperador()+"  -  "+o.getLinea()+"  - "+o.getColumna()+"  -  "+o.getOcurrencia());
+            
+        }
+        
     }
     
 }

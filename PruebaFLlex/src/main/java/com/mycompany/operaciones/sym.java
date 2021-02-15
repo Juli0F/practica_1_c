@@ -12,29 +12,28 @@ public class sym {
   public static final int MULTIPLICACION = 3;
   public static final int DIVISION = 4;
   public static final int SUMA = 2;
+  public static final int CURVA = 18;
   public static final int ANIMAR = 10;
-  public static final int CAFE = 27;
-  public static final int COLOR = 18;
+  public static final int CAFE = 26;
   public static final int CUADRADO = 14;
   public static final int OBJETO = 11;
-  public static final int VERDE = 23;
-  public static final int ROJO = 22;
+  public static final int VERDE = 22;
+  public static final int ROJO = 21;
   public static final int PAR_ABIERTO = 6;
   public static final int GRAFICAR = 9;
-  public static final int AMARILLO = 24;
+  public static final int AMARILLO = 23;
   public static final int COMA = 8;
   public static final int EOF = 0;
-  public static final int MORADO = 26;
+  public static final int MORADO = 25;
   public static final int POLIGONO = 17;
   public static final int error = 1;
-  public static final int TIPO_ANIMACION = 19;
   public static final int CIRCULO = 13;
-  public static final int AZUL = 21;
+  public static final int AZUL = 20;
   public static final int PAR_CERRADO = 7;
-  public static final int ENTERO = 20;
-  public static final int NEGRO = 28;
+  public static final int ENTERO = 19;
+  public static final int NEGRO = 27;
   public static final int ANTERIOR = 12;
-  public static final int NARANJA = 25;
+  public static final int NARANJA = 24;
   public static final int RECTANGULO = 15;
   public static final int RESTA = 5;
   public static final String[] terminalNames = new String[] {
@@ -56,8 +55,7 @@ public class sym {
   "RECTANGULO",
   "LINEA",
   "POLIGONO",
-  "COLOR",
-  "TIPO_ANIMACION",
+  "CURVA",
   "ENTERO",
   "AZUL",
   "ROJO",
