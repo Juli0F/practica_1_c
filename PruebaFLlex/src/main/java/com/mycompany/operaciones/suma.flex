@@ -49,7 +49,7 @@ public List<ErroresC8> getListaErroresLexicos(){
 <YYINITIAL> {
 
 
-{DIGITO}+ {return new Symbol (sym.ENTERO, yyline+1,yycolumn+1,Integer.parseInt(yytext())); }
+{DIGITO}+ {return new Symbol (sym.ENTERO, yyline+1,yycolumn+1,Integer.parseInt(yytext())); Symbol s = this.next_token}
 
 "+" {return new Symbol(sym.SUMA,yyline+1, yycolumn+1,(yytext()));}
 "-" {return new Symbol(sym.RESTA,yyline+1, yycolumn+1,(yytext()));}

@@ -799,6 +799,7 @@ public List<ErroresC8> getListaErroresLexicos(){
           case 37: break;
           case 10:
             { return new Symbol (sym.ENTERO, yyline+1,yycolumn+1,Integer.parseInt(yytext()));
+            
             }
             // fall through
           case 38: break;
