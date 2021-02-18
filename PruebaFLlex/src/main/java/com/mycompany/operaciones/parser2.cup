@@ -214,7 +214,7 @@ parser code {:
 
         }
 
-    protected int error_sync_size() {
+    protected int _error_sync_size() {
 		return 1;
 	}
 
@@ -386,15 +386,15 @@ figura ::= CUADRADO cuadrado:cua {:RESULT = "cuadrado "+cua; contCuadrado++;:}
 		;
 		
 
-circulo ::=  PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA color:col PAR_CERRADO{:RESULT = "( "+s1+","+s2+","+s3+","+col+")";:};
+circulo ::=  PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA color:col PAR_CERRADO{:RESULT = s1+","+s2+","+s3+","+col;:};
 
-cuadrado ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA color PAR_CERRADO;
+cuadrado ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA color:col PAR_CERRADO{:RESULT = s1+","+s2+","+s3+","+col;:};
 
-rectangulo ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA color PAR_CERRADO;
+rectangulo ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA  s:s4 COMA color:col PAR_CERRADO;
 
-linea ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA color PAR_CERRADO;
+linea ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA  s:s4 COMA color:col PAR_CERRADO;
 
-poligono ::=  PAR_ABIERTO PAR_ABIERTO s COMA s COMA s COMA  s COMA s COMA color PAR_CERRADO;
+poligono ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA  s:s4 COMA s:s5 COMA color:col PAR_CERRADO;
 
 
 

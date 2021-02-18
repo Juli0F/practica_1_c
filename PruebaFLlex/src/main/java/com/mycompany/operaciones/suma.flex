@@ -49,7 +49,7 @@ public List<ErroresC8> getListaErroresLexicos(){
 <YYINITIAL> {
 
 
-{DIGITO}+ {return new Symbol (sym.ENTERO, yyline+1,yycolumn+1,Integer.parseInt(yytext())); Symbol s = this.next_token}
+{DIGITO}+ {return new Symbol (sym.ENTERO, yyline+1,yycolumn+1,Integer.parseInt(yytext())); }
 
 "+" {return new Symbol(sym.SUMA,yyline+1, yycolumn+1,(yytext()));}
 "-" {return new Symbol(sym.RESTA,yyline+1, yycolumn+1,(yytext()));}
@@ -75,14 +75,14 @@ public List<ErroresC8> getListaErroresLexicos(){
 "linea" {return new Symbol(sym.LINEA,yyline+1, yycolumn+1,(yytext()));}
 "poligono" {return new Symbol(sym.POLIGONO,yyline+1, yycolumn+1,(yytext()));}
 //COLORES
-"azul" {return new Symbol(sym.AZUL,yyline+1, yycolumn+1,("blue"));}
-"rojo" {return new Symbol(sym.ROJO,yyline+1, yycolumn+1,("red"));}
-"verde" {return new Symbol(sym.VERDE,yyline+1, yycolumn+1,("green"));}
-"amarillo" {return new Symbol(sym.AMARILLO,yyline+1, yycolumn+1,("yellow"));}
-"naranja" {return new Symbol(sym.NARANJA,yyline+1, yycolumn+1,("orange"));}
-"morado" {return new Symbol(sym.MORADO,yyline+1, yycolumn+1,("purple"));}
-"cafe" {return new Symbol(sym.CAFE,yyline+1, yycolumn+1,("brown"));}
-"negro" {return new Symbol(sym.NEGRO,yyline+1, yycolumn+1,("black"));}
+"azul" {return new Symbol(sym.AZUL,yyline+1, yycolumn+1,("#1E90FF"));}
+"rojo" {return new Symbol(sym.ROJO,yyline+1, yycolumn+1,("#FF0000"));}
+"verde" {return new Symbol(sym.VERDE,yyline+1, yycolumn+1,("#008000"));}
+"amarillo" {return new Symbol(sym.AMARILLO,yyline+1, yycolumn+1,("#FFFF99"));}
+"naranja" {return new Symbol(sym.NARANJA,yyline+1, yycolumn+1,("#FFA500"));}
+"morado" {return new Symbol(sym.MORADO,yyline+1, yycolumn+1,("#800080"));}
+"cafe" {return new Symbol(sym.CAFE,yyline+1, yycolumn+1,("#F4A460"));}
+"negro" {return new Symbol(sym.NEGRO,yyline+1, yycolumn+1,("#000000"));}
 //tipo de animacion
 
 "curva" {return new Symbol(sym.CURVA,yyline+1, yycolumn+1,(yytext()));}

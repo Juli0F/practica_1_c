@@ -799,22 +799,21 @@ public List<ErroresC8> getListaErroresLexicos(){
           case 37: break;
           case 10:
             { return new Symbol (sym.ENTERO, yyline+1,yycolumn+1,Integer.parseInt(yytext()));
-            
             }
             // fall through
           case 38: break;
           case 11:
-            { return new Symbol(sym.AZUL,yyline+1, yycolumn+1,("blue"));
+            { return new Symbol(sym.AZUL,yyline+1, yycolumn+1,("#1E90FF"));
             }
             // fall through
           case 39: break;
           case 12:
-            { return new Symbol(sym.CAFE,yyline+1, yycolumn+1,("brown"));
+            { return new Symbol(sym.CAFE,yyline+1, yycolumn+1,("#F4A460"));
             }
             // fall through
           case 40: break;
           case 13:
-            { return new Symbol(sym.ROJO,yyline+1, yycolumn+1,("red"));
+            { return new Symbol(sym.ROJO,yyline+1, yycolumn+1,("#FF0000"));
             }
             // fall through
           case 41: break;
@@ -829,12 +828,12 @@ public List<ErroresC8> getListaErroresLexicos(){
             // fall through
           case 43: break;
           case 16:
-            { return new Symbol(sym.NEGRO,yyline+1, yycolumn+1,("black"));
+            { return new Symbol(sym.NEGRO,yyline+1, yycolumn+1,("#000000"));
             }
             // fall through
           case 44: break;
           case 17:
-            { return new Symbol(sym.VERDE,yyline+1, yycolumn+1,("green"));
+            { return new Symbol(sym.VERDE,yyline+1, yycolumn+1,("#008000"));
             }
             // fall through
           case 45: break;
@@ -844,7 +843,7 @@ public List<ErroresC8> getListaErroresLexicos(){
             // fall through
           case 46: break;
           case 19:
-            { return new Symbol(sym.MORADO,yyline+1, yycolumn+1,("purple"));
+            { return new Symbol(sym.MORADO,yyline+1, yycolumn+1,("#800080"));
             }
             // fall through
           case 47: break;
@@ -859,12 +858,12 @@ public List<ErroresC8> getListaErroresLexicos(){
             // fall through
           case 49: break;
           case 22:
-            { return new Symbol(sym.NARANJA,yyline+1, yycolumn+1,("orange"));
+            { return new Symbol(sym.NARANJA,yyline+1, yycolumn+1,("#FFA500"));
             }
             // fall through
           case 50: break;
           case 23:
-            { return new Symbol(sym.AMARILLO,yyline+1, yycolumn+1,("yellow"));
+            { return new Symbol(sym.AMARILLO,yyline+1, yycolumn+1,("#FFFF99"));
             }
             // fall through
           case 51: break;
