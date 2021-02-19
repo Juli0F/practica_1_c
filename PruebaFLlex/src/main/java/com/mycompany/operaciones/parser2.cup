@@ -335,7 +335,7 @@ nonterminal String tipo_animacion;
 
 
 
-inicio ::= sentencia:val{: System.out.println(val);:}; //INICIA LA GRAMATICA
+inicio ::= sentencia:val{: :}; //INICIA LA GRAMATICA
 
 sentencia ::= graph:gr  sen_1:sn1 {: :} //GRAFICAR FIGURA O ANIMACION 
 		|
@@ -374,27 +374,27 @@ tipo_animacion ::= LINEA:li{: RESULT = li; contAnimacionLinea++;:}
 
 ;
 
-figura ::= CUADRADO cuadrado:cua {:RESULT = "cuadrado "+cua; contCuadrado++;:}
+figura ::= CUADRADO cuadrado:cua {:RESULT = "cuadrado"+cua; contCuadrado++;:}
 		|
-		CIRCULO circulo:cir {:RESULT = "circulo "+cir; contCirculo++;:}
+		CIRCULO circulo:cir {:RESULT = "circulo"+cir; contCirculo++;:}
 		|
-		RECTANGULO rectangulo:rec {:RESULT = "rectangulo "+rec; contRectangulo++;:}
+		RECTANGULO rectangulo:rec {:RESULT = "rectangulo"+rec; contRectangulo++;:}
 		|
-		 LINEA linea:lin{:RESULT = "linea "+lin; contLinea++;:}
+		 LINEA linea:lin{:RESULT = "linea"+lin; contLinea++;:}
 		|
-		POLIGONO poligono:pol{:RESULT = "poligono "+pol; contPoligono++;:}
+		POLIGONO poligono:pol{:RESULT = "poligono"+pol; contPoligono++;:}
 		;
 		
 
-circulo ::=  PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA color:col PAR_CERRADO{:RESULT = s1+","+s2+","+s3+","+col;:};
+circulo ::=  PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA color:col PAR_CERRADO{:RESULT = ","+s1+","+s2+","+s3+","+col;:};
 
-cuadrado ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA color:col PAR_CERRADO{:RESULT = s1+","+s2+","+s3+","+col;:};
+cuadrado ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA color:col PAR_CERRADO{:RESULT = ","+s1+","+s2+","+s3+","+col;:};
 
-rectangulo ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA  s:s4 COMA color:col PAR_CERRADO;
+rectangulo ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA  s:s4 COMA color:col PAR_CERRADO{:RESULT = ","+s1+","+s2+","+s3+","+s4+","+col;:};
 
-linea ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA  s:s4 COMA color:col PAR_CERRADO;
+linea ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA  s:s4 COMA color:col PAR_CERRADO{:RESULT = ","+s1+","+s2+","+s3+","+s4+","+col;:};
 
-poligono ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA  s:s4 COMA s:s5 COMA color:col PAR_CERRADO;
+poligono ::=   PAR_ABIERTO s:s1 COMA s:s2 COMA s:s3 COMA  s:s4 COMA s:s5 COMA color:col PAR_CERRADO{:RESULT = ","+s1+","+s2+","+s3+","+s4+","+s5+","+col;:};
 
 
 

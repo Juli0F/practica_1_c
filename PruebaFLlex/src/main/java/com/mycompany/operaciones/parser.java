@@ -557,7 +557,7 @@ class CUP$parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		 System.out.println(val);
+		 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("inicio",12, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -726,7 +726,7 @@ class CUP$parser$actions {
 		int cualeft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int cuaright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String cua = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = "cuadrado "+cua; contCuadrado++;
+		RESULT = "cuadrado"+cua; contCuadrado++;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("figura",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -738,7 +738,7 @@ class CUP$parser$actions {
 		int cirleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int cirright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String cir = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = "circulo "+cir; contCirculo++;
+		RESULT = "circulo"+cir; contCirculo++;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("figura",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -750,7 +750,7 @@ class CUP$parser$actions {
 		int recleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int recright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String rec = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = "rectangulo "+rec; contRectangulo++;
+		RESULT = "rectangulo"+rec; contRectangulo++;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("figura",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -762,7 +762,7 @@ class CUP$parser$actions {
 		int linleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int linright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String lin = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = "linea "+lin; contLinea++;
+		RESULT = "linea"+lin; contLinea++;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("figura",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -774,7 +774,7 @@ class CUP$parser$actions {
 		int polleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int polright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String pol = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = "poligono "+pol; contPoligono++;
+		RESULT = "poligono"+pol; contPoligono++;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("figura",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -795,7 +795,7 @@ class CUP$parser$actions {
 		int colleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int colright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String col = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		RESULT = s1+","+s2+","+s3+","+col;
+		RESULT = ","+s1+","+s2+","+s3+","+col;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("circulo",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -816,7 +816,7 @@ class CUP$parser$actions {
 		int colleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int colright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String col = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		RESULT = s1+","+s2+","+s3+","+col;
+		RESULT = ","+s1+","+s2+","+s3+","+col;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("cuadrado",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -840,7 +840,7 @@ class CUP$parser$actions {
 		int colleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int colright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String col = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-
+		RESULT = ","+s1+","+s2+","+s3+","+s4+","+col;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("rectangulo",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-10)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -864,7 +864,7 @@ class CUP$parser$actions {
 		int colleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int colright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String col = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-
+		RESULT = ","+s1+","+s2+","+s3+","+s4+","+col;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("linea",10, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-10)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -891,7 +891,7 @@ class CUP$parser$actions {
 		int colleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int colright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String col = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-
+		RESULT = ","+s1+","+s2+","+s3+","+s4+","+s5+","+col;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("poligono",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-12)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
