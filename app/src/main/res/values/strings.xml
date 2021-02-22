@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Figurator</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Reporte Objetos</string>
+    <string name="animacion">Animacion</string>
+
+    <string name="button2">Inicar Animacion</string>
+</resources>

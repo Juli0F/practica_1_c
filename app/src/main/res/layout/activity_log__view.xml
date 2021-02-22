@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingTop="@dimen/cardview_default_elevation"
+    android:paddingRight="16dp"
+
+    android:orientation="vertical"
+    tools:context=".Log_View">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAnimacion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:autoText="true"
+            android:freezesText="true"
+            android:onClick="onCkick"
+            android:text="Animacion"
+            android:textSize="11sp"
+            app:backgroundTint="@color/teal_700" />
+
+        <Button
+            android:id="@+id/btnObjetos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:autoText="true"
+            android:onClick="onCkick"
+            android:text="Objetos"
+            android:textSize="11sp"
+            app:backgroundTint="@color/teal_700" />
+
+
+        <Button
+            android:id="@+id/btnOperadores"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:autoText="true"
+            android:onClick="onCkick"
+            android:text="Operadores"
+            android:textSize="11sp"
+            app:backgroundTint="@color/teal_700" />
+
+        <Button
+            android:id="@+id/btnColores"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:autoText="true"
+            android:onClick="onCkick"
+            android:text="Colores"
+            android:textSize="11sp"
+            app:backgroundTint="@color/teal_700" />
+        
+
+
+
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/contenedorFragmentos"
+        android:layout_width="match_parent"
+        android:layout_height="453dp"></FrameLayout>
+
+    <Button
+        android:id="@+id/graficar"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:text="Graficar" />
+
+</LinearLayout>
