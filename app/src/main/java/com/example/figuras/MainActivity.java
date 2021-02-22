@@ -34,40 +34,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         txtInput = findViewById(R.id.txtInPut);
-    //    txtInstrucciones = findViewById(R.id.txtShow);
-        String instrucciones = "Puede Crear las Siguientes \"Figuras:\" \n" +
-                "Cuadrado, Rectangulo, Circulo y una Linea\n" +
-                "de la Sigueinte Manera\n" +
-                "graficar figura (numero,numero)";
+
 
         btnGraficar = findViewById(R.id.btnGraficar);
-
-
-
-
-
-
         btnGraficar.setOnClickListener((view) -> {
 
             try {
 
-            String txtTest =  ""
-                    + "  graficar  circulo( 9*2,5/3, 163, rojo ) \n"
-                    + " graficar circulo ( 200 + 12 , 25, 15, verde ) "
-                    + " graficar circulo ( 400 + 12 , 25, 15, verde ) "
-                    + " graficar rectangulo ( 180 , 20, 220,80, negro ) "
-                    + " graficar cuadrado ( 300 , 500, 220, negro )"
-                    + "animar objeto anterior(1,1,linea)"
-                    + "graficar poligono ( 400, 500, 300, 200, 8, negro)\n ";
-
-                    //180, 20, 220, 80
-            txtInput.setText(txtTest);
-
-
             String txtIn = txtInput.getText().toString();
             System.out.println(txtIn);
 
-//            txtInstrucciones.setText(instrucciones);
 
             StringReader reader = new StringReader(txtIn);
             MyLexer lexer = new MyLexer(reader);
